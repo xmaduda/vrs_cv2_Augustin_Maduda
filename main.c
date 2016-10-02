@@ -66,9 +66,11 @@ int main(void)
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
 	GPIOA->MODER |= (uint32_t)(1<<(2*5));
 	GPIOA->PUPDR |= (uint32_t)(1<<(2*5));
-	GPIOA->OSPEEDR &= ~(uint32_t)(1<<(2*5)); // low speed
-	GPIOA->OSPEEDR &= ~(uint32_t)(1<<((2*5)+1))
-	int i;
+	GPIOA->OSPEEDR |= (uint32_t)(1<<(2*5));
+	GPIOA->OSPEEDR |= (uint32_t)(1<<((2*5)+1))
+
+	//int i;
+	int BUTTON;
 
   /**
   *  IMPORTANT NOTE!
@@ -111,9 +113,13 @@ int main(void)
 		BUTTON = 0;*/
 
 	  // Uloha 3
-	i = 0;
+	/*i = 0;
 	for(i; i<5000; i++) {}
-		GPIOA->ODR ^= (1<<5);	// blikanie LEDky
+		GPIOA->ODR ^= (1<<5);	// blikanie LEDky */
+	if (GPIOC->IDR == 0b00000000000000000010000000000000)	// sledovanie stavu tlacidla na LEDke
+		GPIOA->ODR |= (1<<5);
+	else
+		GPIOA->ODR &= ~(1<<5);
   }
   return 0;
 }
