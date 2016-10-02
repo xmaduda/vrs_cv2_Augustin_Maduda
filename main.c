@@ -49,16 +49,26 @@ SOFTWARE.
 int main(void)
 {
 
+	// Uloha 1
   /*RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
   GPIOA->MODER |= (uint32_t)(1<<(2*5));
   GPIOA->PUPDR |= (uint32_t)(1<<(2*5));
   GPIOA->OSPEEDR |= (uint32_t)(1<<(2*5));
   GPIOA->OSPEEDR |= (uint32_t)(1<<((2*5)+1));*/
 
-  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
+	// Uloha 2
+  /*RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);*/
   // MODER je defaultne nastaveny na 00 (input)
   // OTYPER je defaultne nastaveny na 0 (push-pull)
   // PUPDR je defaultne nastaveny na 00 (No pull-up, pull-down)
+
+	// Uloha 3
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+	GPIOA->MODER |= (uint32_t)(1<<(2*5));
+	GPIOA->PUPDR |= (uint32_t)(1<<(2*5));
+	GPIOA->OSPEEDR &= ~(uint32_t)(1<<(2*5)); // low speed
+	GPIOA->OSPEEDR &= ~(uint32_t)(1<<((2*5)+1))
+	int i;
 
   /**
   *  IMPORTANT NOTE!
@@ -83,6 +93,7 @@ int main(void)
   /* Infinite loop */
   while (1)
   {
+	  // Uloha 1
 	/*GPIOA->ODR |= (1<<5);
 	GPIOA->ODR &= ~(1<<5);
 
@@ -92,11 +103,17 @@ int main(void)
 	GPIOA->ODR ^= (1<<5);
 	GPIOA->ODR ^= (1<<5);}*/
 
-	int BUTTON;
+	  // Uloha 2
+	/*int BUTTON;
 	if (GPIOC->IDR == 0b00000000000000000010000000000000)	// asi zly zapis, nemam ako otestovat
 		BUTTON = 1;
 	else
-		BUTTON = 0;
+		BUTTON = 0;*/
+
+	  // Uloha 3
+	i = 0;
+	for(i; i<5000; i++) {}
+		GPIOA->ODR ^= (1<<5);	// blikanie LEDky
   }
   return 0;
 }
