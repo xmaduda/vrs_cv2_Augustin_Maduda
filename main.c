@@ -69,8 +69,7 @@ int main(void)
 	GPIOA->OSPEEDR |= (uint32_t)(1<<(2*5));
 	GPIOA->OSPEEDR |= (uint32_t)(1<<((2*5)+1))
 
-	//int i;
-	int BUTTON;
+	int i;
 
   /**
   *  IMPORTANT NOTE!
@@ -116,10 +115,19 @@ int main(void)
 	/*i = 0;
 	for(i; i<5000; i++) {}
 		GPIOA->ODR ^= (1<<5);	// blikanie LEDky */
-	if (GPIOC->IDR == 0b00000000000000000010000000000000)	// sledovanie stavu tlacidla na LEDke
+	/*if (GPIOC->IDR == 0b00000000000000000010000000000000)	// sledovanie stavu tlacidla na LEDke
 		GPIOA->ODR |= (1<<5);
 	else
-		GPIOA->ODR &= ~(1<<5);
+		GPIOA->ODR &= ~(1<<5);*/
+
+	// kym nie je tlacitlo stlacene, nedeje sa nic
+	if (GPIOC->IDR == 0b00000000000000000010000000000000)	// kontrola, ci sa stlacilo tlacidlo (stav z 0 - 1)
+	{
+		for(i; i<10; i++){} // osetrenie prechodovych dejov pocas stlacenia
+		while (GPIOC->IDR == 0b00000000000000000010000000000000) {} // caka sa, kym sa tlacidlo uvolni (stav z 1 - 0)
+		for(i; i<10; i++){} // osetrenie prechodovych dejov pocas uvolnenia
+		GPIOA->ODR ^= (1<<5); // ked sa uvolni - zmena stavu LEDky (svieti/nesvieti)
+	}
   }
   return 0;
 }
