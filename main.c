@@ -83,14 +83,20 @@ int main(void)
   /* Infinite loop */
   while (1)
   {
-	GPIOA->ODR |= (1<<5);
+	/*GPIOA->ODR |= (1<<5);
 	GPIOA->ODR &= ~(1<<5);
 
 	GPIOA->BSRRL |= (1<<5);
 	GPIOA->BSRRH |= (1<<5);
 
 	GPIOA->ODR ^= (1<<5);
-	GPIOA->ODR ^= (1<<5);
+	GPIOA->ODR ^= (1<<5);}*/
+
+	int BUTTON;
+	if (GPIOC->IDR == 0b00000000000000000010000000000000)	// asi zly zapis, nemam ako otestovat
+		BUTTON = 1;
+	else
+		BUTTON = 0;
   }
   return 0;
 }
