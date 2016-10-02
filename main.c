@@ -49,11 +49,16 @@ SOFTWARE.
 int main(void)
 {
 
-  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+  /*RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
   GPIOA->MODER |= (uint32_t)(1<<(2*5));
   GPIOA->PUPDR |= (uint32_t)(1<<(2*5));
   GPIOA->OSPEEDR |= (uint32_t)(1<<(2*5));
-  GPIOA->OSPEEDR |= (uint32_t)(1<<((2*5)+1));
+  GPIOA->OSPEEDR |= (uint32_t)(1<<((2*5)+1));*/
+
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
+  // MODER je defaultne nastaveny na 00 (input)
+  // OTYPER je defaultne nastaveny na 0 (push-pull)
+  // PUPDR je defaultne nastaveny na 00 (No pull-up, pull-down)
 
   /**
   *  IMPORTANT NOTE!
